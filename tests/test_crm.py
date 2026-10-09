@@ -57,3 +57,20 @@ async def test_error_transporte_reintenta(monkeypatch):
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
         assert await CRMClient(client, Settings(_env_file=None)).consultar("c1") is None
     assert len(calls) == 3
+
+
+@pytest.mark.parametrize("payload", [
+    {"id": "otro", "nombre": "Cliente", "plan": "basico"},
+    {"id": "c1", "nombre": "Cliente", "plan": "desconocido"},
+    {"id": "c1"},
+])
+async def test_respuesta_invalida_no_reintenta(payload):
+    calls = []
+
+    def handler(request):
+        calls.append(request)
+        return httpx.Response(200, json=payload)
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        assert await CRMClient(client, Settings(_env_file=None)).consultar("c1") is None
+    assert len(calls) == 1

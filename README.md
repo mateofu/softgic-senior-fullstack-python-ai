@@ -79,4 +79,5 @@ La API corre como usuario sin privilegios; SQLite se conserva en el volumen.
 Para PostgreSQL proporcione `DATABASE_URL` al contenedor mediante un archivo de
 entorno local protegido o el gestor de secretos del entorno de despliegue.
 
-Esta entrega cubre exclusivamente la parte 1. Las partes 2–5 quedan pendientes de revisión.
+La parte 1 está implementada. La propuesta de la parte 2 está en
+[ARQUITECTURA.md](ARQUITECTURA.md). Las partes 3–5 quedan pendientes.

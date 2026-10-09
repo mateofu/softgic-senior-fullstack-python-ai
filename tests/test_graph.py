@@ -3,6 +3,8 @@ from decimal import Decimal
 import httpx
 import pytest
 from langchain_core.language_models.fake_chat_models import FakeListChatModel
+from langchain_core.language_models.fake_chat_models import FakeMessagesListChatModel
+from langchain_core.messages import AIMessage
 from langchain_core.callbacks import BaseCallbackHandler
 from pydantic import ValidationError
 
@@ -77,3 +79,25 @@ async def test_datos_crm_llegan_al_prompt_de_respuesta():
                        model, CRMClient(client, settings), settings)
     assert '"nombre": "Ana"' in prompts[1]
     assert '"plan": "premium"' in prompts[1]
+
+
+async def test_uso_reportado_acumula_ambos_nodos_sin_estimacion():
+    model = FakeMessagesListChatModel(responses=[
+        AIMessage(content='{"categoria":"otro","prioridad":"baja"}',
+                  usage_metadata={"input_tokens": 100, "output_tokens": 20, "total_tokens": 120}),
+        AIMessage(content="Respuesta sugerida",
+                  usage_metadata={"input_tokens": 200, "output_tokens": 30, "total_tokens": 230}),
+    ])
+    settings = Settings(_env_file=None, input_price_per_million=Decimal("2"),
+                        output_price_per_million=Decimal("4"))
+
+    def handler(request):
+        pytest.fail("Una solicitud de prioridad baja no debe consultar el CRM")
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        result = await analizar(Solicitud(id="s1", texto="Ayuda", cliente_id="c1"),
+                                model, CRMClient(client, settings), settings)
+    assert result.tokens_entrada == 300
+    assert result.tokens_salida == 50
+    assert result.costo_estimado == Decimal("0.0008")
+    assert result.uso_estimado is False
