@@ -80,4 +80,5 @@ Para PostgreSQL proporcione `DATABASE_URL` al contenedor mediante un archivo de
 entorno local protegido o el gestor de secretos del entorno de despliegue.
 
 La parte 1 está implementada. La propuesta de la parte 2 está en
-[ARQUITECTURA.md](ARQUITECTURA.md). Las partes 3–5 quedan pendientes.
+[ARQUITECTURA.md](ARQUITECTURA.md). La revisión de código de la parte 3 está en
+[REVISION.md](REVISION.md). Las partes 4–5 quedan pendientes.
