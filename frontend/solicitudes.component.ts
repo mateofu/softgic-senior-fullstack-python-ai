@@ -10,6 +10,7 @@ import { Analisis, SolicitudesService } from './solicitudes.service';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './solicitudes.component.html',
+  styleUrl: './solicitudes.component.css',
 })
 export class SolicitudesComponent {
   private readonly service = inject(SolicitudesService);

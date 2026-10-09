@@ -1,29 +1,35 @@
+<div class="solicitudes">
+<header><p class="eyebrow">GESTIÓN DE SOLICITUDES</p>
 <h1>Analizar solicitud</h1>
-<form [formGroup]="form" (ngSubmit)="analizar()" [attr.aria-busy]="loading()">
+<p class="intro">Ingresa los datos del caso para obtener su clasificación y una respuesta sugerida.</p></header>
+<form class="card" [formGroup]="form" (ngSubmit)="analizar()" [attr.aria-busy]="loading()">
   <fieldset [disabled]="loading()">
     <legend>Datos de la solicitud</legend>
-    <p><label for="solicitud-id">ID de solicitud</label>
+    <p class="field"><label for="solicitud-id">ID de solicitud</label>
       <input id="solicitud-id" formControlName="id" maxlength="100" required></p>
-    <p><label for="cliente-id">ID de cliente</label>
+    <p class="field"><label for="cliente-id">ID de cliente</label>
       <input id="cliente-id" formControlName="cliente_id" maxlength="100" required></p>
-    <p><label for="texto">Texto</label>
-      <textarea id="texto" formControlName="texto" maxlength="20000" required></textarea></p>
-    <button type="submit" [disabled]="loading()">Analizar</button>
+    <p class="field"><label for="texto">Texto de la solicitud</label>
+      <textarea id="texto" formControlName="texto" maxlength="20000" rows="5" placeholder="Describe el problema o la consulta del cliente…" required></textarea></p>
+    <button type="submit" [disabled]="loading()">{{ loading() ? 'Analizando…' : 'Analizar solicitud' }}</button>
   </fieldset>
 </form>
-@if (loading()) { <p role="status">Analizando solicitud…</p> }
-@if (error()) { <p role="alert">{{ error() }}</p> }
+@if (loading()) { <p class="notice loading" role="status">Analizando solicitud…</p> }
+@if (error()) { <p class="notice error" role="alert">{{ error() }}</p> }
 @if (resultado(); as analisis) {
-  <section aria-label="Resultado" aria-live="polite">
+  <section class="card result" aria-label="Resultado" aria-live="polite">
+    <p class="eyebrow">ANÁLISIS COMPLETADO</p>
     <h2>Resultado: {{ analisis.id }}</h2>
-    <p>Categoría: {{ analisis.categoria }} · Prioridad: {{ analisis.prioridad }}</p>
-    <h3>Respuesta sugerida</h3>
-    <p style="white-space: pre-wrap">{{ analisis.respuesta }}</p>
+    <div class="badges"><span class="badge">Categoría: {{ analisis.categoria }}</span><span class="badge priority" [class.priority-high]="analisis.prioridad === 'alta'">Prioridad: {{ analisis.prioridad }}</span></div>
+    <div class="response"><h3>Respuesta sugerida</h3>
+    <p style="white-space: pre-wrap">{{ analisis.respuesta }}</p></div>
     @if (analisis.cliente; as cliente) {
       <p>Cliente: {{ cliente.nombre }} ({{ cliente.id }}) · Plan: {{ cliente.plan }}</p>
     } @else { <p>Sin información adicional del cliente.</p> }
-    <p>Tokens de entrada: {{ analisis.tokens_entrada }} · Salida: {{ analisis.tokens_salida }}</p>
-    <p>Costo estimado: USD {{ analisis.costo_estimado }} ·
+    <p class="metrics">Tokens de entrada: {{ analisis.tokens_entrada }} · Salida: {{ analisis.tokens_salida }}</p>
+    <p class="metrics">Costo estimado: USD {{ analisis.costo_estimado }} ·
       Uso {{ analisis.uso_estimado ? 'estimado' : 'reportado por el modelo' }}</p>
   </section>
 }
+
+</div>

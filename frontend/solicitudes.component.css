@@ -1,0 +1,50 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #1e293b;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+*, *::before, *::after { box-sizing: border-box; }
+.solicitudes { max-width: 880px; margin: 0 auto; padding: 48px 24px; }
+header { margin-bottom: 28px; }
+.eyebrow { margin: 0 0 8px; color: #365cc0; font-size: .75rem; font-weight: 700; letter-spacing: .1em; }
+h1, h2, h3 { color: #152238; line-height: 1.25; overflow-wrap: anywhere; }
+h1 { margin: 0 0 12px; font-size: clamp(1.75rem, 4vw, 2.25rem); letter-spacing: -.035em; }
+h2 { margin: 0 0 18px; font-size: 1.4rem; }
+h3 { margin: 0 0 10px; font-size: 1rem; }
+.intro { margin: 0; max-width: 640px; color: #526178; }
+.card { padding: 28px; border: 1px solid #dce3ee; border-radius: 16px; background: #fff; box-shadow: 0 4px 18px #15223805; }
+fieldset { min-width: 0; padding: 0; margin: 0; border: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+legend { padding: 0; margin-bottom: 24px; font-size: 1.125rem; font-weight: 650; }
+.field { min-width: 0; margin: 0; }
+.field:nth-of-type(3) { grid-column: 1 / -1; }
+label { display: block; margin-bottom: 8px; font-size: .875rem; font-weight: 600; }
+input, textarea { display: block; width: 100%; padding: 11px 13px; border: 1px solid #aebccd; border-radius: 8px; background: #fff; color: #1e293b; font: inherit; }
+textarea { min-height: 140px; resize: vertical; }
+textarea::placeholder { color: #66758a; }
+input:focus-visible, textarea:focus-visible, button:focus-visible { outline: 3px solid #99b8ff; outline-offset: 3px; }
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched { border-color: #b42335; }
+button { grid-column: 1 / -1; justify-self: end; min-height: 46px; padding: 11px 22px; border: 1px solid transparent; border-radius: 8px; background: #2853bd; color: #fff; font: inherit; font-size: .875rem; font-weight: 650; cursor: pointer; }
+button:hover:not(:disabled) { background: #1d4095; }
+button:disabled { background: #607394; cursor: wait; }
+fieldset:disabled input, fieldset:disabled textarea { background: #f1f4f8; color: #59677b; }
+.notice { padding: 16px 20px; border: 1px solid; border-radius: 10px; overflow-wrap: anywhere; }
+.loading { color: #244a99; background: #edf3ff; border-color: #c7d8fa; }
+.error { color: #942538; background: #fff1f2; border-color: #f0bec7; }
+.result { margin-top: 24px; overflow-wrap: anywhere; }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.badge { padding: 5px 11px; border-radius: 6px; background: #eef2fa; color: #354e7b; font-size: .8125rem; font-weight: 600; }
+.priority { background: #edf5f2; color: #27634e; }
+.priority-high { background: #fff0e6; color: #954112; }
+.response { padding: 20px; border-left: 3px solid #688bdb; border-radius: 0 8px 8px 0; background: #f6f8fc; }
+.response p { margin: 0; }
+.metrics { color: #526178; font-size: .8125rem; margin: 8px 0 0; }
+@media (max-width: 560px) {
+  .solicitudes { padding: 28px 16px; }
+  .card { padding: 20px; }
+  fieldset { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  button { justify-self: stretch; }
+}

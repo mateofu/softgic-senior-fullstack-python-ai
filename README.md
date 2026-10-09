@@ -88,7 +88,7 @@ en [RESPUESTAS.md](RESPUESTAS.md).
 
 Se entregan un componente standalone, su plantilla y un servicio, como permite el
 enunciado; no se incluye un proyecto Angular completo ni scripts de compilación.
-Para integrarlos en una aplicación Angular 21, copie los tres archivos, registre
+Para integrarlos en una aplicación Angular 21, copie los cuatro archivos (componente, plantilla, estilos y servicio), registre
 `provideHttpClient()` en los providers de `bootstrapApplication` e importe
 `SolicitudesComponent` en el componente padre para usar `<app-solicitudes />`.
 Requiere `@angular/core`, `@angular/common`, `@angular/forms` y `rxjs` del proyecto
