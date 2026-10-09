@@ -1,0 +1,29 @@
+<h1>Analizar solicitud</h1>
+<form [formGroup]="form" (ngSubmit)="analizar()" [attr.aria-busy]="loading()">
+  <fieldset [disabled]="loading()">
+    <legend>Datos de la solicitud</legend>
+    <p><label for="solicitud-id">ID de solicitud</label>
+      <input id="solicitud-id" formControlName="id" maxlength="100" required></p>
+    <p><label for="cliente-id">ID de cliente</label>
+      <input id="cliente-id" formControlName="cliente_id" maxlength="100" required></p>
+    <p><label for="texto">Texto</label>
+      <textarea id="texto" formControlName="texto" maxlength="20000" required></textarea></p>
+    <button type="submit" [disabled]="loading()">Analizar</button>
+  </fieldset>
+</form>
+@if (loading()) { <p role="status">Analizando solicitud…</p> }
+@if (error()) { <p role="alert">{{ error() }}</p> }
+@if (resultado(); as analisis) {
+  <section aria-label="Resultado" aria-live="polite">
+    <h2>Resultado: {{ analisis.id }}</h2>
+    <p>Categoría: {{ analisis.categoria }} · Prioridad: {{ analisis.prioridad }}</p>
+    <h3>Respuesta sugerida</h3>
+    <p style="white-space: pre-wrap">{{ analisis.respuesta }}</p>
+    @if (analisis.cliente; as cliente) {
+      <p>Cliente: {{ cliente.nombre }} ({{ cliente.id }}) · Plan: {{ cliente.plan }}</p>
+    } @else { <p>Sin información adicional del cliente.</p> }
+    <p>Tokens de entrada: {{ analisis.tokens_entrada }} · Salida: {{ analisis.tokens_salida }}</p>
+    <p>Costo estimado: USD {{ analisis.costo_estimado }} ·
+      Uso {{ analisis.uso_estimado ? 'estimado' : 'reportado por el modelo' }}</p>
+  </section>
+}

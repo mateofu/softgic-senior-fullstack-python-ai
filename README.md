@@ -81,4 +81,23 @@ entorno local protegido o el gestor de secretos del entorno de despliegue.
 
 La parte 1 está implementada. La propuesta de la parte 2 está en
 [ARQUITECTURA.md](ARQUITECTURA.md). La revisión de código de la parte 3 está en
-[REVISION.md](REVISION.md). Las partes 4–5 quedan pendientes.
+[REVISION.md](REVISION.md). La parte 4 está en [frontend/](frontend/) y la parte 5
+en [RESPUESTAS.md](RESPUESTAS.md).
+
+## Frontend (parte 4)
+
+Se entregan un componente standalone, su plantilla y un servicio, como permite el
+enunciado; no se incluye un proyecto Angular completo ni scripts de compilación.
+Para integrarlos en una aplicación Angular 21, copie los tres archivos, registre
+`provideHttpClient()` en los providers de `bootstrapApplication` e importe
+`SolicitudesComponent` en el componente padre para usar `<app-solicitudes />`.
+Requiere `@angular/core`, `@angular/common`, `@angular/forms` y `rxjs` del proyecto
+anfitrión, con versiones compatibles (consulte [Angular](https://angular.dev/reference/versions)).
+
+El servicio usa la ruta relativa `/solicitudes/analizar`. En desarrollo configure
+el proxy de `ng serve` para `/solicitudes/**` hacia `http://localhost:8000`;
+en producción configure el proxy inverso para enviar `/solicitudes/` a la API
+bajo el mismo origen. Así no se necesita modificar CORS en el backend.
+El formulario envía `id`, `texto` y `cliente_id`, bloquea envíos simultáneos y muestra
+carga, errores y resultado. No reintenta automáticamente el POST.
+La integración propuesta de identidad está en [frontend/README.md](frontend/README.md).
