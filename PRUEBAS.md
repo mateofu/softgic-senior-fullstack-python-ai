@@ -15,7 +15,8 @@ Ejecutada el 9 de octubre de 2026.
 ## Angular
 
 Aplicación temporal en `.validation-angular/`, excluida de Git y del contexto Docker.
-Se copiaron sin cambios los tres archivos de `frontend/` y se registró `provideHttpClient()`.
+Se integraron los archivos del componente y del servicio de `frontend/` y se registró `provideHttpClient()`.
+La entrega actual contiene cuatro archivos: componente, plantilla, estilos y servicio.
 
 - Angular 21, TypeScript 5.9 y Node 24.18.0.
 - `ng build`: compilación correcta con `strict` y `strictTemplates` activados.
